@@ -23,9 +23,9 @@ RUN dnf -y install \
     ln -s /usr/bin/python3 /usr/bin/python && \
     echo "🐍🐍🐍🐍🐍"
 
-# python global deps
-RUN pip install --no-cache-dir ansible && \
-    echo "🦀🦀🦀🦀🦀"
+# # python global deps
+# RUN pip install --no-cache-dir ansible && \
+#     echo "🦀🦀🦀🦀🦀"
 
 # argo
 RUN curl -sL https://github.com/argoproj/argo-cd/releases/download/v${ARGOCD_VERSION}/argocd-linux-amd64 -o /usr/local/bin/argocd && \
@@ -53,13 +53,13 @@ RUN curl -skL -o /tmp/helm.tar.gz https://get.helm.sh/helm-v${HELM_VERSION}-linu
     rm -rf /tmp/helm.tar.gz && \
     echo "⚓️⚓️⚓️⚓️⚓️"
 
-# vault
-RUN curl -skL -o /tmp/vault.zip https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip && \
-    unzip -q /tmp/vault.zip -d /tmp vault && \
-    mv -v /tmp/vault /usr/local/bin && \
-    chmod -R 775 /usr/local/bin/vault && \
-    rm -rf /tmp/vault.zip && \
-    echo "🔑🔑🔑🔑🔑"
+# # vault
+# RUN curl -skL -o /tmp/vault.zip https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip && \
+#     unzip -q /tmp/vault.zip -d /tmp vault && \
+#     mv -v /tmp/vault /usr/local/bin && \
+#     chmod -R 775 /usr/local/bin/vault && \
+#     rm -rf /tmp/vault.zip && \
+#     echo "🔑🔑🔑🔑🔑"
 
 # Install kustomize
 RUN curl -skL -o /tmp/kustomize.tar.gz https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv${KUSTOMIZE_VERSION}/kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz && \
@@ -71,18 +71,23 @@ RUN curl -skL -o /tmp/kustomize.tar.gz https://github.com/kubernetes-sigs/kustom
     echo "🐾🐾🐾🐾🐾"
 
 # google chrome for headless mode
-COPY google-chrome.repo /etc/yum.repos.d/google-chrome.repo
+# COPY google-chrome.repo /etc/yum.repos.d/google-chrome.repo
 
-RUN subscription-manager register --username "${RHEL_RHSM_USERNAME}" --password "${RHEL_RHSM_PASSWORD}" && \
-    subscription-manager repos --enable codeready-builder-for-rhel-10-$(arch)-rpms && \
-    dnf install -y google-chrome-stable && \
-    subscription-manager unregister && \
-    dnf -y clean all && \
-    rm -rf /var/cache/dnf && \
-    echo "🐕🐕🐕🐕🐕"
+# RUN subscription-manager register --username "${RHEL_RHSM_USERNAME}" --password "${RHEL_RHSM_PASSWORD}" && \
+#     subscription-manager repos --enable codeready-builder-for-rhel-10-$(arch)-rpms && \
+#     dnf install -y google-chrome-stable && \
+#     subscription-manager unregister && \
+#     dnf -y clean all && \
+#     rm -rf /var/cache/dnf && \
+#     echo "🐕🐕🐕🐕🐕"
+
+RUN npm i opencode-ai@latest
 
 USER user
+RUN mkdir /home/user/workspace
 WORKDIR /home/user
+
+
 
 # we have to customize all this as there are not great overrides unfortunately
 RUN rm -f .bashrc .viminfo .bash_profile .bash_logout .gitconfig
@@ -92,9 +97,20 @@ ADD .copy-files ../tooling/.copy-files
 ADD .stow-local-ignore ../tooling/.stow-local-ignore
 ADD .bashrc ../tooling/.bashrc
 ADD .installed_tools.txt ../tooling/.installed_tools.txt
+
 RUN chmod 755 /entrypoint.sh && chown root:root /entrypoint.sh
 RUN chmod 664 ../tooling/.copy-files && chown user:root ../tooling/.copy-files
 RUN chmod 664 ../tooling/.stow-local-ignore && chown user:root ../tooling/.stow-local-ignore
 RUN chmod 660 ../tooling/.bashrc && chown user:root ../tooling/.bashrc
 RUN chmod 440 ../tooling/.installed_tools.txt && chown user:root ../tooling/.installed_tools.txt
+
+ENV OPENCODE_CONFIG=/home/user/.config/opencode/opencode.json
+ENV OPENCODE_CONFIG_DIR=/home/user/.config/opencode/
+
 USER user
+RUN mkdir -p .config/opencode/
+RUN mkdir -p .cache/opencode/
+RUN chmod u+r .config/opencode/
+RUN chmod u+rw .cache/opencode/
+
+WORKDIR /home/user/workspace

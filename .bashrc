@@ -11,6 +11,7 @@ then
     PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
 export PATH
+export PATH="/projects/node_modules/.bin:$PATH"
 
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
@@ -36,4 +37,4 @@ function help_message() {
 
 alias help=help_message
 
-echo 'Welcome to the OpenShift Web Terminal Custom Image: https://github.com/eformat/web-terminal. Type "help" for a list of installed CLI tools.'
+echo 'Welcome to the OpenShift Web Terminal Custom Image with OpenCode: Type "help" for a list of installed CLI tools.'

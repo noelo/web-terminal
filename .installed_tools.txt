@@ -4,11 +4,9 @@ kubectl           1.33.3          Kubernetes CLI
 kustomize         5.8.0           Kustomize CLI
 helm              4.0.1           Helm CLI
 jq                1.8.1           jq
-vault             1.21.1          Hashi Vault CLI
 python            3.12.11         python
 node              22.19.0         Nodejs
 bash              5.2.26          bash
-ansible           2.20.0          ansible-core
 argocd            3.2.0           ArgoCD CLI
 yq                4.49.1          yq
-google-chrome     142.0.7444.175  Google Chrome
+opencode                          OpenCode
