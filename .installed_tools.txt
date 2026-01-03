@@ -10,3 +10,4 @@ bash              5.2.26          bash
 argocd            3.2.0           ArgoCD CLI
 yq                4.49.1          yq
 opencode                          OpenCode
+bd                                Beads

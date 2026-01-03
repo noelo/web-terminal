@@ -11,7 +11,9 @@ then
     PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
 export PATH
-export PATH="/projects/node_modules/.bin:$PATH"
+PATH="/projects/node_modules/.bin:$PATH"
+PATH="/home/user/node_modules/opencode-linux-x64/bin/:$PATH"
+export PATH
 
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=

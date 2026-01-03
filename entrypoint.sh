@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Note: We want to overwrite existing .bashrc etc for PVC so must overide this script - see NOTE
 # Extracted from base image
 

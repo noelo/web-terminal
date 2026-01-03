@@ -81,13 +81,14 @@ RUN curl -skL -o /tmp/kustomize.tar.gz https://github.com/kubernetes-sigs/kustom
 #     rm -rf /var/cache/dnf && \
 #     echo "🐕🐕🐕🐕🐕"
 
-RUN npm i opencode-ai@latest
-
 USER user
+
 RUN mkdir /home/user/workspace
 WORKDIR /home/user
+RUN npm i opencode-ai@latest
+RUN /home/user/node_modules/opencode-linux-x64/bin/opencode models
 
-
+RUN curl -fsSL https://raw.githubusercontent.com/steveyegge/beads/main/scripts/install.sh | bash
 
 # we have to customize all this as there are not great overrides unfortunately
 RUN rm -f .bashrc .viminfo .bash_profile .bash_logout .gitconfig
@@ -107,10 +108,11 @@ RUN chmod 440 ../tooling/.installed_tools.txt && chown user:root ../tooling/.ins
 ENV OPENCODE_CONFIG=/home/user/.config/opencode/opencode.json
 ENV OPENCODE_CONFIG_DIR=/home/user/.config/opencode/
 
+
 USER user
+WORKDIR /home/user
+
 RUN mkdir -p .config/opencode/
-RUN mkdir -p .cache/opencode/
 RUN chmod u+r .config/opencode/
-RUN chmod u+rw .cache/opencode/
 
 WORKDIR /home/user/workspace
