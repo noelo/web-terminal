@@ -88,11 +88,11 @@ WORKDIR /home/user
 RUN npm i opencode-ai@latest
 RUN /home/user/node_modules/opencode-linux-x64/bin/opencode models
 
-RUN curl -fsSL https://raw.githubusercontent.com/steveyegge/beads/main/scripts/install.sh | bash
 
 # we have to customize all this as there are not great overrides unfortunately
 RUN rm -f .bashrc .viminfo .bash_profile .bash_logout .gitconfig
 USER root
+RUN curl -fsSL https://raw.githubusercontent.com/steveyegge/beads/main/scripts/install.sh | bash
 ADD entrypoint.sh /entrypoint.sh
 ADD .copy-files ../tooling/.copy-files
 ADD .stow-local-ignore ../tooling/.stow-local-ignore

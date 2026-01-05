@@ -1,0 +1,87 @@
+{
+    "$schema": "https://opencode.ai/config.json",
+    "autoupdate": false,
+    "instructions": [
+        "AGENTS.md",
+        "docs/guidelines.md"
+    ],
+    "enabled_providers": [
+        "RH-MAAS",
+        "LLAMASTACK",
+        "openrouter"
+    ],
+    "mcp": {
+        "remote-skills": {
+            "type": "remote",
+            "url": "{env:CLAUDE_SKILLS_MCP_URL}",
+            "enabled": true,
+        },
+        "context7": {
+            "type": "remote",
+            "url": "https://mcp.context7.com/mcp",
+            "headers": {
+                "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}"
+            }
+        },
+        "gh_grep": {
+            "type": "remote",
+            "url": "https://mcp.grep.app"
+        }
+    },
+    "provider": {
+        "openrouter": {
+            "models": {
+                "moonshotai/kimi-k2": {
+                    "options": {
+                        "provider": {
+                            "order": [
+                                "baseten"
+                            ],
+                            "allow_fallbacks": false
+                        }
+                    }
+                }
+            }
+        },
+        "RH-MAAS": {
+            "npm": "@ai-sdk/openai-compatible",
+            "name": "RH-MAAS-Llama-3.2-3B-Instruct",
+            "options": {
+                "baseURL": "{env:RH_MAAS_URL}",
+                "apiKey": "{env:RH_MAAS_Llama_3_2_3B_Instruct_API_KEY}",
+            },
+            "models": {
+                "llama-3-2-3b": {
+                    "name": "llama-3-2-3b",
+                    "limit": {
+                        "context": 120000,
+                        "output": 120000
+                    }
+                }
+            }
+        },
+        "LLAMASTACK": {
+            "npm": "@ai-sdk/openai-compatible",
+            "name": "llama-stack",
+            "options": {
+                "baseURL": "{env:OPENCODE_LLS_URL}",
+            },
+            "models": {
+                "llama-4-scout-17b-16e-w4a16": {
+                    "name": "llama-4-scout-17b-16e-w4a16",
+                    "limit": {
+                        "context": 120000,
+                        "output": 120000
+                    }
+                },
+                "microsoft/phi-4": {
+                    "name": "microsoft/phi-4",
+                    "limit": {
+                        "context": 120000,
+                        "output": 120000
+                    }
+                }
+            }
+        }
+    }
+}
