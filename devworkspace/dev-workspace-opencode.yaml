@@ -44,10 +44,7 @@ spec:
         volumeMounts:
         - name: cli-storage
           path: /home/user/.local
-      name: noc-test-tooling
-    - name: work-storage
-      volume:
-        ephemeral: false
+      name: opencode-tooling
     - name: cli-storage
       volume:
         ephemeral: false
