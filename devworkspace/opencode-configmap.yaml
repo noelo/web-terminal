@@ -109,7 +109,7 @@ data:
 kind: ConfigMap
 metadata:
   annotations:
-    controller.devfile.io/mount-path: /home/user/.config/opencode
+    controller.devfile.io/mount-path: /home/user/.config/opencode/config-map
   labels:
     controller.devfile.io/mount-to-devworkspace: "true"
     controller.devfile.io/watch-configmap: "true"
