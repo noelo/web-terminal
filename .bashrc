@@ -33,7 +33,7 @@ export EDITOR=vim
 
 function help_message() {
   echo "Installed tools:"
-  cat .installed_tools.txt
+  cat /home/tooling/.installed_tools.txt
   echo ""
 }
 
