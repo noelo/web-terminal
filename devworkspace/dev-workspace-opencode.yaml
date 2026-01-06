@@ -40,8 +40,6 @@ spec:
         memoryLimit: 6G
         memoryRequest: 500Mi
         volumeMounts:
-        - name: work-storage
-          path: /home/user/workspace
         - name: cli-storage
           path: /home/user/.local
       name: noc-test-tooling

@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vscode-editor-configurations
+data:
+  extensions.json: |
+    {
+      "recommendations": [
+          "dbaeumer.vscode-eslint",
+          "github.vscode-pull-request-github"
+      ]
+    }
+  settings.json: |
+    {
+      "git.defaultCloneDirectory": "/projects/",
+      "window.header": "OpenCode Agentic AI Command Line Interface",
+      "window.commandCenter": false,
+      "terminal.integrated.defaultLocation": "editor",
+      "terminal.integrated.confirmOnExit": "always",
+      "terminal.integrated.cwd": "/projects",
+      "terminal.integrated.defaultProfile.linux": "bash (2)",
+      "workbench.colorCustomizations": {
+        "titleBar.activeBackground": "#CCA700",
+        "titleBar.activeForeground": "#ffffff"
+      }
+    }
+immutable: false
