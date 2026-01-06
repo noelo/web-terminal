@@ -14,12 +14,11 @@ metadata:
       factory:
         params: >-
           che-editor=che-incubator/che-code/latest&storageType=per-user&url=https://che-gateway.openshift-operators.svc.cluster.local:8080/dashboard/devfile-registry/devfiles/empty.yaml
-  name: noc-test-working
-  namespace: admin-devspaces
+  name: opencode-devspace
 spec:
   contributions:
   - kubernetes:
-      name: noc-test-template
+      name: opencode-devspace-template
     name: editor
   routingClass: che
   started: false

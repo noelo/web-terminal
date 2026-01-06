@@ -5,8 +5,7 @@ metadata:
     che.eclipse.org/components-update-policy: managed
     che.eclipse.org/plugin-registry-url: http://127.0.0.1:8080/dashboard/api/editors/devfile?che-editor=che-incubator/che-code/latest
   generation: 1
-  name: noc-test-template
-  namespace: admin-devspaces
+  name: opencode-devspace-template
 spec:
   commands:
   - apply:
