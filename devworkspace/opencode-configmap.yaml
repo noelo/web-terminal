@@ -11,7 +11,7 @@ data:
         "enabled_providers": [
             "RH-MAAS",
             "LLAMASTACK",
-            "openrouter"
+            "opencode-zen"
         ],
         "mcp": {
             "remote-skills": {
@@ -43,6 +43,24 @@ data:
                                 "allow_fallbacks": false
                             }
                         }
+                    }
+                }
+            },
+            "opencode-zen": {
+                "npm": "@ai-sdk/openai-compatible",
+                "name": "opencode-zen",
+                "options": {
+                    "baseURL": "https://opencode.ai/zen/v1",
+                },
+                "models": {
+                    "big-pickle": {
+                        "name": "big-pickle"
+                    },
+                    "glm-4.7-free": {
+                        "name": "glm-4.7-free"
+                    },
+                    "grok-code": {
+                        "name": "grok-code"
                     }
                 }
             },
