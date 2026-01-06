@@ -36,6 +36,8 @@ spec:
         env:
         - name: HOST_USERS
           value: "true"
+        - name: VSCODE_DEFAULT_WORKSPACE
+          value: "/projects"
         image: quay.io/noeloc/opencode:latest
         memoryLimit: 6G
         memoryRequest: 500Mi
