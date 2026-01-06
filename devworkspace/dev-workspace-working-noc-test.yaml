@@ -1,0 +1,54 @@
+apiVersion: workspace.devfile.io/v1alpha2
+kind: DevWorkspace
+metadata:
+  annotations:
+    che.eclipse.org/che-editor: che-incubator/che-code/latest
+    che.eclipse.org/devfile: |
+      schemaVersion: 2.2.0
+      metadata:
+        generateName: empty
+    che.eclipse.org/devfile-source: |
+      url:
+        location: >-
+          https://che-gateway.openshift-operators.svc.cluster.local:8080/dashboard/devfile-registry/devfiles/empty.yaml
+      factory:
+        params: >-
+          che-editor=che-incubator/che-code/latest&storageType=per-user&url=https://che-gateway.openshift-operators.svc.cluster.local:8080/dashboard/devfile-registry/devfiles/empty.yaml
+  name: noc-test-working
+  namespace: admin-devspaces
+spec:
+  contributions:
+  - kubernetes:
+      name: noc-test-template
+    name: editor
+  routingClass: che
+  started: false
+  template:
+    attributes:
+      controller.devfile.io/devworkspace-config:
+        name: devworkspace-config
+        namespace: openshift-operators
+      controller.devfile.io/scc: container-build
+      controller.devfile.io/storage-type: per-user
+    components:
+    - container:
+        cpuLimit: 4000m
+        cpuRequest: 1000m
+        env:
+        - name: HOST_USERS
+          value: "true"
+        image: quay.io/noeloc/opencode:latest
+        memoryLimit: 6G
+        memoryRequest: 500Mi
+        volumeMounts:
+        - name: work-storage
+          path: /home/user/workspace
+        - name: cli-storage
+          path: /home/user/.local
+      name: noc-test-tooling
+    - name: work-storage
+      volume:
+        ephemeral: false
+    - name: cli-storage
+      volume:
+        ephemeral: false
