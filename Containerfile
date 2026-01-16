@@ -85,13 +85,16 @@ USER user
 
 RUN mkdir /home/user/workspace
 WORKDIR /home/user
+
 RUN npm i opencode-ai@latest
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
 # RUN /home/user/node_modules/opencode-linux-x64/bin/opencode models
-# RUN mv /home/user/.config/opencode/ /home/user/.config/opencode-orig/
+RUN mv /home/user/.config/ /home/user/.config-orig
 
 # we have to customize all this as there are not great overrides unfortunately
 RUN rm -f .bashrc .viminfo .bash_profile .bash_logout .gitconfig
 USER root
+
 # RUN curl -fsSL https://raw.githubusercontent.com/steveyegge/beads/main/scripts/install.sh | bash
 ADD entrypoint.sh /entrypoint.sh
 ADD .copy-files ../tooling/.copy-files
@@ -105,9 +108,9 @@ RUN chmod 664 ../tooling/.stow-local-ignore && chown user:root ../tooling/.stow-
 RUN chmod 660 ../tooling/.bashrc && chown user:root ../tooling/.bashrc
 RUN chmod 440 ../tooling/.installed_tools.txt && chown user:root ../tooling/.installed_tools.txt
 
-ENV OPENCODE_CONFIG=/home/user/.config/opencode/config-map/opencode.json
+ENV OPENCODE_CONFIG=/home/user/opencode/config-map/opencode.json
 ENV OPENCODE_CONFIG_DIR=/home/user/.config/opencode/
 
-
 USER user
-WORKDIR /home/user 
+WORKDIR /home/user
+ 

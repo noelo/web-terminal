@@ -11,7 +11,8 @@ data:
         "enabled_providers": [
             "RH-MAAS",
             "LLAMASTACK",
-            "opencode-zen"
+            "opencode-zen",
+            "openrouter"
         ],
         "mcp": {
             "remote-skills": {
@@ -29,6 +30,10 @@ data:
             "gh_grep": {
                 "type": "remote",
                 "url": "https://mcp.grep.app"
+            },
+            "openshift-mcp": {
+                "type": "remote",
+                "url": "http://kubernetes-mcp-server.mcptest.svc.cluster.local:8080/mcp"
             }
         },
         "keybinds": {

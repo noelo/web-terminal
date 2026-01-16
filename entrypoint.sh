@@ -223,4 +223,7 @@ if [ -d /home/tooling/.config ]; then
     echo "Finished creating .config symlinks."
 fi
 
+echo "Copying config files from older layers"
+cp -r /home/user/.config-orig/* /home/user/.config/
+
 exec "$@"
