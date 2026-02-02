@@ -41,6 +41,9 @@ data:
         },
         "provider": {
             "openrouter": {
+                "options": {
+                    "OPENROUTER_API_KEY": "{env:OPENROUTER_API_KEY}", 
+                },
                 "models": {
                     "moonshotai/kimi-k2": {
                         "options": {
@@ -117,7 +120,7 @@ data:
 kind: ConfigMap
 metadata:
   annotations:
-    controller.devfile.io/mount-path: /home/user/.config/opencode/config-map
+    controller.devfile.io/mount-path: /home/user/opencode/config-map
   labels:
     controller.devfile.io/mount-to-devworkspace: "true"
     controller.devfile.io/watch-configmap: "true"

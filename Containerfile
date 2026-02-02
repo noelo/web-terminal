@@ -28,9 +28,9 @@ RUN dnf -y install \
 #     echo "🦀🦀🦀🦀🦀"
 
 # argo
-RUN curl -sL https://github.com/argoproj/argo-cd/releases/download/v${ARGOCD_VERSION}/argocd-linux-amd64 -o /usr/local/bin/argocd && \
-    chmod -R 775 /usr/local/bin/argocd && \
-    echo "🐙🐙🐙🐙🐙"
+# RUN curl -sL https://github.com/argoproj/argo-cd/releases/download/v${ARGOCD_VERSION}/argocd-linux-amd64 -o /usr/local/bin/argocd && \
+#     chmod -R 775 /usr/local/bin/argocd && \
+#     echo "🐙🐙🐙🐙🐙"
 
 # oc client
 RUN rm -f /usr/bin/oc && \
@@ -45,13 +45,13 @@ RUN curl -sLo /usr/local/bin/jq https://github.com/stedolan/jq/releases/download
     echo "🦨🦨🦨🦨🦨"
 
 # helm
-RUN curl -skL -o /tmp/helm.tar.gz https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz && \
-    tar -C /tmp -xzf /tmp/helm.tar.gz && \
-    mv -v /tmp/linux-amd64/helm /usr/local/bin && \
-    chmod -R 775 /usr/local/bin/helm && \
-    rm -rf /tmp/linux-amd64 && \
-    rm -rf /tmp/helm.tar.gz && \
-    echo "⚓️⚓️⚓️⚓️⚓️"
+# RUN curl -skL -o /tmp/helm.tar.gz https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz && \
+#     tar -C /tmp -xzf /tmp/helm.tar.gz && \
+#     mv -v /tmp/linux-amd64/helm /usr/local/bin && \
+#     chmod -R 775 /usr/local/bin/helm && \
+#     rm -rf /tmp/linux-amd64 && \
+#     rm -rf /tmp/helm.tar.gz && \
+#     echo "⚓️⚓️⚓️⚓️⚓️"
 
 # # vault
 # RUN curl -skL -o /tmp/vault.zip https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip && \
@@ -62,13 +62,13 @@ RUN curl -skL -o /tmp/helm.tar.gz https://get.helm.sh/helm-v${HELM_VERSION}-linu
 #     echo "🔑🔑🔑🔑🔑"
 
 # Install kustomize
-RUN curl -skL -o /tmp/kustomize.tar.gz https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv${KUSTOMIZE_VERSION}/kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz && \
-    tar -C /tmp -xzf /tmp/kustomize.tar.gz && \
-    mv -v /tmp/kustomize /usr/local/bin && \
-    chmod -R 775 /usr/local/bin/kustomize && \
-    rm -rf /tmp/linux-amd64 && \
-    rm -rf /tmp/kustomize.tar.gz && \
-    echo "🐾🐾🐾🐾🐾"
+# RUN curl -skL -o /tmp/kustomize.tar.gz https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv${KUSTOMIZE_VERSION}/kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz && \
+#     tar -C /tmp -xzf /tmp/kustomize.tar.gz && \
+#     mv -v /tmp/kustomize /usr/local/bin && \
+#     chmod -R 775 /usr/local/bin/kustomize && \
+#     rm -rf /tmp/linux-amd64 && \
+#     rm -rf /tmp/kustomize.tar.gz && \
+#     echo "🐾🐾🐾🐾🐾"
 
 # google chrome for headless mode
 # COPY google-chrome.repo /etc/yum.repos.d/google-chrome.repo
@@ -86,10 +86,21 @@ USER user
 RUN mkdir /home/user/workspace
 WORKDIR /home/user
 
+
+# RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+# RUN curl -fsSL https://claude.ai/install.sh | bash
+RUN ls -altr
 RUN npm i opencode-ai@latest
-RUN curl -LsSf https://astral.sh/uv/install.sh | sh
-# RUN /home/user/node_modules/opencode-linux-x64/bin/opencode models
+RUN /home/user/node_modules/opencode-linux-x64/bin/opencode stats
+
+RUN ls -altr .
+RUN ls -latr .config/opencode
+
 RUN mv /home/user/.config/ /home/user/.config-orig
+RUN mv /home/user/node_modules /home/user/.node_modules.orig
+RUN mv /home/user/package-lock.json /home/user/.package-lock.json.orig
+RUN mv /home/user/package.json /home/user/.package.json.orig
+RUN mv /home/user/.npm /home/user/.npm.orig
 
 # we have to customize all this as there are not great overrides unfortunately
 RUN rm -f .bashrc .viminfo .bash_profile .bash_logout .gitconfig
@@ -112,5 +123,4 @@ ENV OPENCODE_CONFIG=/home/user/opencode/config-map/opencode.json
 ENV OPENCODE_CONFIG_DIR=/home/user/.config/opencode/
 
 USER user
-WORKDIR /home/user
- 
+WORKDIR /home/user 
