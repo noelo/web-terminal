@@ -40,3 +40,9 @@ oc label secret opencode-env-secret controller.devfile.io/mount-to-devworkspace=
 oc annotate cm opencode-config controller.devfile.io/mount-path=/home/user/.config/opencode 
 oc annotate secret opencode-env-secret controller.devfile.io/mount-as=env
 ```
+
+
+## command line script
+```
+opencode run "/openshift-mcp:cluster-health-check:mcp"
+```

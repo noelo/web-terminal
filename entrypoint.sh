@@ -230,6 +230,7 @@ cp -r /home/user/.node_modules.orig /home/user/node_modules
 cp -r /home/user/.package-lock.json.orig /home/user/package-lock.json 
 cp -r /home/user/.package.json.orig /home/user/package.json 
 cp -r /home/user/.npm.orig /home/user/.npm
+cp -r /home/user/.cache.orig /home/user/.cache
 
 echo "Copying config files from older layers...done"
 exec "$@"

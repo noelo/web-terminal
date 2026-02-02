@@ -101,6 +101,7 @@ RUN mv /home/user/node_modules /home/user/.node_modules.orig
 RUN mv /home/user/package-lock.json /home/user/.package-lock.json.orig
 RUN mv /home/user/package.json /home/user/.package.json.orig
 RUN mv /home/user/.npm /home/user/.npm.orig
+RUN mv /home/user/.cache /home/user/.cache.orig
 
 # we have to customize all this as there are not great overrides unfortunately
 RUN rm -f .bashrc .viminfo .bash_profile .bash_logout .gitconfig
