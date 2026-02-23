@@ -34,6 +34,10 @@ data:
             "openshift-mcp": {
                 "type": "remote",
                 "url": "http://kubernetes-mcp-server.mcptest.svc.cluster.local:8080/mcp"
+            },
+            "prometheus-mcp": {
+                "type": "remote",
+                "url": "http://prom-mcp.skills.svc.cluster.local:8080/mcp"
             }
         },
         "keybinds": {

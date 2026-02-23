@@ -37,6 +37,8 @@ function help_message() {
   echo ""
 }
 
+export TMPDIR=/tmp0
+
 alias help=help_message
 
 echo 'Welcome to the OpenShift Web Terminal Custom Image with OpenCode: Type "help" for a list of installed CLI tools.'

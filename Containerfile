@@ -92,8 +92,10 @@ WORKDIR /home/user
 RUN ls -altr
 RUN npm i opencode-ai@latest
 RUN /home/user/node_modules/opencode-linux-x64/bin/opencode stats
+RUN mkdir /home/user/linux-mcp
+RUN pip install --target=/home/user/linux-mcp --no-cache-dir linux-mcp-server 
 
-RUN ls -altr .
+RUN ls -altr /home/user/linux-mcp
 RUN ls -latr .config/opencode
 
 RUN mv /home/user/.config/ /home/user/.config-orig
