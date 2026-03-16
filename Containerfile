@@ -44,14 +44,14 @@ RUN curl -sLo /usr/local/bin/jq https://github.com/stedolan/jq/releases/download
     chmod +x /usr/local/bin/yq && \
     echo "🦨🦨🦨🦨🦨"
 
-# helm
-# RUN curl -skL -o /tmp/helm.tar.gz https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz && \
-#     tar -C /tmp -xzf /tmp/helm.tar.gz && \
-#     mv -v /tmp/linux-amd64/helm /usr/local/bin && \
-#     chmod -R 775 /usr/local/bin/helm && \
-#     rm -rf /tmp/linux-amd64 && \
-#     rm -rf /tmp/helm.tar.gz && \
-#     echo "⚓️⚓️⚓️⚓️⚓️"
+#helm
+RUN curl -skL -o /tmp/helm.tar.gz https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz && \
+    tar -C /tmp -xzf /tmp/helm.tar.gz && \
+    mv -v /tmp/linux-amd64/helm /usr/local/bin && \
+    chmod -R 775 /usr/local/bin/helm && \
+    rm -rf /tmp/linux-amd64 && \
+    rm -rf /tmp/helm.tar.gz && \
+    echo "⚓️⚓️⚓️⚓️⚓️"
 
 # # vault
 # RUN curl -skL -o /tmp/vault.zip https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip && \
@@ -87,23 +87,27 @@ RUN mkdir /home/user/workspace
 WORKDIR /home/user
 
 
-# RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
 # RUN curl -fsSL https://claude.ai/install.sh | bash
-RUN ls -altr
 RUN npm i opencode-ai@latest
 RUN /home/user/node_modules/opencode-linux-x64/bin/opencode stats
-RUN mkdir /home/user/linux-mcp
-RUN pip install --target=/home/user/linux-mcp --no-cache-dir linux-mcp-server 
+RUN npm install @fission-ai/openspec@latest
+# RUN mkdir /home/user/linux-mcp
+# RUN pip install --target=/home/user/linux-mcp --no-cache-dir linux-mcp-server 
 
-RUN ls -altr /home/user/linux-mcp
-RUN ls -latr .config/opencode
+# RUN ls -altr /home/user/
+# RUN ls -latr .config/opencode
+# RUN ls -latr .cache
 
-RUN mv /home/user/.config/ /home/user/.config-orig
-RUN mv /home/user/node_modules /home/user/.node_modules.orig
-RUN mv /home/user/package-lock.json /home/user/.package-lock.json.orig
-RUN mv /home/user/package.json /home/user/.package.json.orig
-RUN mv /home/user/.npm /home/user/.npm.orig
-RUN mv /home/user/.cache /home/user/.cache.orig
+RUN mkdir .build
+RUN mv /home/user/.config/ /home/user/.build/.config
+RUN mv /home/user/node_modules /home/user/.build/node_modules
+RUN mv /home/user/package-lock.json /home/user/.build/package-lock.json
+RUN mv /home/user/package.json /home/user/.build/package.json
+RUN mv /home/user/.npm /home/user/.build/.npm
+RUN mv /home/user/.cache /home/user/.build/.cache
+RUN mv /home/user/.local /home/user/.build/.local
+RUN mv /home/user/.bun /home/user/.build/.bun
 
 # we have to customize all this as there are not great overrides unfortunately
 RUN rm -f .bashrc .viminfo .bash_profile .bash_logout .gitconfig

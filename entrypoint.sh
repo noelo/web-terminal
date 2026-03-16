@@ -224,13 +224,9 @@ if [ -d /home/tooling/.config ]; then
 fi
 
 echo "Copying config files from older layers"
-# mkdir -p /home/user/.config/
-cp -r /home/user/.config-orig/* /home/user/.config/
-cp -r /home/user/.node_modules.orig /home/user/node_modules
-cp -r /home/user/.package-lock.json.orig /home/user/package-lock.json 
-cp -r /home/user/.package.json.orig /home/user/package.json 
-cp -r /home/user/.npm.orig /home/user/.npm
-cp -r /home/user/.cache.orig /home/user/.cache
+cp -r /home/user/.build/* /home/user/
+
+ln -s /home/user/continuedev/config-map/config.yaml /home/user/.continue/config.yaml
 
 echo "Copying config files from older layers...done"
 exec "$@"

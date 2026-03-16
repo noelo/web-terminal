@@ -15,6 +15,8 @@ PATH="/projects/node_modules/.bin:$PATH"
 PATH="/home/user/node_modules/opencode-linux-x64/bin/:$PATH"
 export PATH
 
+[ -f $HOME/ssh-environment ] && source $HOME/ssh-environment
+
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
 
@@ -27,18 +29,9 @@ if [ -d ~/.bashrc.d ]; then
         done
 fi
 
+eval "$(ssh-agent -s)"
+cat /etc/ssh/passphrase > ssh-add /etc/ssh/dwo_ssh_key
+
 unset rc
 
 export EDITOR=vim
-
-function help_message() {
-  echo "Installed tools:"
-  cat /home/tooling/.installed_tools.txt
-  echo ""
-}
-
-export TMPDIR=/tmp0
-
-alias help=help_message
-
-echo 'Welcome to the OpenShift Web Terminal Custom Image with OpenCode: Type "help" for a list of installed CLI tools.'
