@@ -12,7 +12,7 @@ then
 fi
 export PATH
 PATH="/projects/node_modules/.bin:$PATH"
-PATH="/home/user/node_modules/opencode-linux-x64/bin/:$PATH"
+PATH="/home/user/node_modules/opencode-linux-x64/bin/:/home/user/node_modules/.bin:$PATH"
 export PATH
 
 [ -f $HOME/ssh-environment ] && source $HOME/ssh-environment
@@ -29,9 +29,12 @@ if [ -d ~/.bashrc.d ]; then
         done
 fi
 
-eval "$(ssh-agent -s)"
-cat /etc/ssh/passphrase > ssh-add /etc/ssh/dwo_ssh_key
+# Start ssh-agent only if not already running
+if [ -z "$SSH_AUTH_SOCK" ]; then
+    eval "$(ssh-agent -s)"
+    cat /etc/ssh/passphrase | ssh-add /etc/ssh/dwo_ssh_key
+fi
 
 unset rc
-
+export OPENSPEC_TELEMETRY=0
 export EDITOR=vim

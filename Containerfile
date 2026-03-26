@@ -1,6 +1,4 @@
 FROM quay.io/devfile/base-developer-image:ubi10-latest
-# registry.redhat.io/web-terminal/web-terminal-tooling-rhel9@sha256:0b133afa920b5180a3c3abe3dd5c73a9cfc252a71346978f94adcb659d683404
-
 USER root
 
 ARG RHEL_RHSM_USERNAME
@@ -22,6 +20,7 @@ RUN dnf -y install \
     ln -s /usr/bin/node /usr/bin/nodejs && \
     ln -s /usr/bin/python3 /usr/bin/python && \
     echo "🐍🐍🐍🐍🐍"
+
 
 # # python global deps
 # RUN pip install --no-cache-dir ansible && \
@@ -88,7 +87,6 @@ WORKDIR /home/user
 
 
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh
-# RUN curl -fsSL https://claude.ai/install.sh | bash
 RUN npm i opencode-ai@latest
 RUN /home/user/node_modules/opencode-linux-x64/bin/opencode stats
 RUN npm install @fission-ai/openspec@latest
@@ -112,6 +110,9 @@ RUN mv /home/user/.bun /home/user/.build/.bun
 # we have to customize all this as there are not great overrides unfortunately
 RUN rm -f .bashrc .viminfo .bash_profile .bash_logout .gitconfig
 USER root
+
+COPY --from=quay.io/chcollin/tmux:latest /tmux /usr/bin/tmux
+RUN tmux -V
 
 # RUN curl -fsSL https://raw.githubusercontent.com/steveyegge/beads/main/scripts/install.sh | bash
 ADD entrypoint.sh /entrypoint.sh
