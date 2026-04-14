@@ -225,8 +225,6 @@ fi
 
 echo "Copying config files from older layers"
 cp -r /home/user/.build/* /home/user/
-
-ln -s /home/user/continuedev/config-map/config.yaml /home/user/.continue/config.yaml
-
 echo "Copying config files from older layers...done"
+
 exec "$@"

@@ -35,6 +35,12 @@ if [ -z "$SSH_AUTH_SOCK" ]; then
     cat /etc/ssh/passphrase | ssh-add /etc/ssh/dwo_ssh_key
 fi
 
+# Check if .continue/preload file exists, if not copy config and create preload file
+if [ ! -f "$HOME/.continue/preload" ]; then
+    cp /home/user/continuedev/config-map/config.yaml /home/user/.continue/config.yaml 2>/dev/null
+    touch "$HOME/.continue/preload" 2>/dev/null
+fi
+
 unset rc
 export OPENSPEC_TELEMETRY=0
 export EDITOR=vim

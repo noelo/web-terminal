@@ -85,10 +85,11 @@ USER user
 RUN mkdir /home/user/workspace
 WORKDIR /home/user
 
-
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh
 RUN npm i opencode-ai@latest
-RUN /home/user/node_modules/opencode-linux-x64/bin/opencode stats
+# RUN /home/user/node_modules/opencode-linux-x64/bin/opencode stats
+RUN /home/user/node_modules/opencode-linux-x64/bin/opencode plugin @tarquinen/opencode-dcp@latest --global
+RUN /home/user/node_modules/opencode-linux-x64/bin/opencode plugin superpowers@git+https://github.com/obra/superpowers.git --global
 RUN npm install @fission-ai/openspec@latest
 # RUN mkdir /home/user/linux-mcp
 # RUN pip install --target=/home/user/linux-mcp --no-cache-dir linux-mcp-server 
@@ -105,7 +106,7 @@ RUN mv /home/user/package.json /home/user/.build/package.json
 RUN mv /home/user/.npm /home/user/.build/.npm
 RUN mv /home/user/.cache /home/user/.build/.cache
 RUN mv /home/user/.local /home/user/.build/.local
-RUN mv /home/user/.bun /home/user/.build/.bun
+# RUN mv /home/user/.bun /home/user/.build/.bun
 
 # we have to customize all this as there are not great overrides unfortunately
 RUN rm -f .bashrc .viminfo .bash_profile .bash_logout .gitconfig
@@ -129,6 +130,9 @@ RUN chmod 440 ../tooling/.installed_tools.txt && chown user:root ../tooling/.ins
 
 ENV OPENCODE_CONFIG=/home/user/opencode/config-map/opencode.json
 ENV OPENCODE_CONFIG_DIR=/home/user/.config/opencode/
+ENV OPENCODE_TUI_CONFIG=/home/user/opencode/config-map/tui.json
+ENV OPENCODE_DISABLE_AUTOUPDATE=TRUE
+ENV OPENCODE_DISABLE_MODELS_FETCH=TRUE
 
 USER user
 WORKDIR /home/user 
